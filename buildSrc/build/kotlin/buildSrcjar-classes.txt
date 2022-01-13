@@ -1,0 +1,1 @@
+/Users/doaafouad/Desktop/Work-Android/AnonymousChat/buildSrc/build/classes/kotlin/main/BuildConfigs.class:/Users/doaafouad/Desktop/Work-Android/AnonymousChat/buildSrc/build/classes/kotlin/main/Libraries.class:/Users/doaafouad/Desktop/Work-Android/AnonymousChat/buildSrc/build/classes/kotlin/main/Versions.class
