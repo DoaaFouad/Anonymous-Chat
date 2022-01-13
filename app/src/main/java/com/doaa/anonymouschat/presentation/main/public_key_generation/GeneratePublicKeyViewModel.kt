@@ -31,5 +31,12 @@ class GeneratePublicKeyViewModel :
 
     private fun generatePublicKey(){
       val keyPairResult = KeyPairGenerator.generate()
+        setState {
+            copy(
+                generatePublicKeyViewState = GeneratePublicKeyContract.GeneratePublicKeyViewState.GeneratePublicKeySuccess(
+                   keyPairResult = keyPairResult
+                )
+            )
+        }
     }
 }
