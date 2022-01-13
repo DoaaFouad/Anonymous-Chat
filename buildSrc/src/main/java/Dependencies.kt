@@ -10,9 +10,12 @@
  */
 
 object BuildConfigs {
+    const val APPLICATION_ID = "com.doaa.anonymouschat"
+
     const val COMPILE_SDK = 30
     const val MIN_SDK = 24
     const val TARGET_SDK = 30
+    const val BUILD_TOOLS_VERSION = "29.0.3"
 
     const val DEVELOPMENT_VERSION_CODE = 1
     const val DEVELOPMENT_VERSION_NAME = "1.0"
@@ -27,6 +30,10 @@ object Versions {
     const val APPCOMPAT = "1.2.0"
     const val MATERIAL = "1.1.0"
     const val GLIDE = "4.11.0"
+
+    // Architecture Component
+    const val ARCH_COMPONENT = "2.2.0"
+    const val ARCH_COMPONENT_LIFECYCLE = "2.3.1"
 
     // DI
     const val KOIN = "2.0.1"
@@ -46,6 +53,10 @@ object Libraries {
     const val APPCOMPAT = "androidx.appcompat:appcompat:${Versions.APPCOMPAT}"
     const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
     const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
+
+    // Architecture Components
+    const val ARCH_COMPONENT = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.ARCH_COMPONENT}"
+    const val ARCH_COMPONENT_LIFECYCLE = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.ARCH_COMPONENT_LIFECYCLE}"
 
     // DI
     const val KOIN = "org.koin:koin-core:${Versions.KOIN}"
