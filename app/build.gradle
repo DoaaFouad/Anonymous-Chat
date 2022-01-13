@@ -47,6 +47,7 @@ dependencies {
     implementation Libraries.ANDROID_X
     implementation Libraries.APPCOMPAT
     implementation Libraries.MATERIAL
+    implementation Libraries.CONSTRAINT_LAYOUT
     implementation Libraries.GLIDE
 
     // Coroutines
@@ -57,8 +58,14 @@ dependencies {
     implementation Libraries.KOIN
     implementation Libraries.KOIN_ANDROID
 
-    // Arch Componen
+    // Arch Component
     implementation Libraries.ARCH_COMPONENT
     implementation Libraries.ARCH_COMPONENT_LIFECYCLE
 
+    // Crypto
+    //implementation Libraries.LAZY_SODIUM
+  //  implementation Libraries.LAZY_SODIUM_JNA
+    implementation Libraries.LAZY_SODIUM_ANDROID
+    implementation Libraries.LAZY_SODIUM_JNA_ANDROID
+    implementation Libraries.SIGNAL_PROTOCOL
 }

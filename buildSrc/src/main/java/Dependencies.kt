@@ -29,6 +29,7 @@ object Versions {
     const val ANDROID_X = "1.3.2"
     const val APPCOMPAT = "1.2.0"
     const val MATERIAL = "1.1.0"
+    const val CONSTRAINT_LAYOUT = "2.0.4"
     const val GLIDE = "4.11.0"
 
     // Architecture Component
@@ -42,6 +43,13 @@ object Versions {
     //Coroutines
     const val COROUTINES_CORE = "1.4.3"
     const val COROUTINES_ANDROID = "1.4.0"
+
+    // Cryptography
+    const val LAZY_SODIUM = "5.1.1"
+    const val LAZY_SODIUM_JNA = "5.10.0"
+    const val LAZY_SODIUM_ANDROID = "5.0.2"
+    const val LAZY_SODIUM_JNA_ANDROID = "5.10.0"
+    const val SIGNAL_PROTOCOL = "2.3.0"
 }
 
 object Libraries {
@@ -52,6 +60,7 @@ object Libraries {
     const val ANDROID_X = "androidx.core:core-ktx:${Versions.ANDROID_X}"
     const val APPCOMPAT = "androidx.appcompat:appcompat:${Versions.APPCOMPAT}"
     const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
+    const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT}"
     const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
 
     // Architecture Components
@@ -65,6 +74,14 @@ object Libraries {
     // Coroutines
     const val COROUTINES_CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.COROUTINES_CORE}"
     const val COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.COROUTINES_ANDROID}"
+
+    // Cryptography
+    const val LAZY_SODIUM = "com.goterl:lazysodium-java:${Versions.LAZY_SODIUM}"
+    const val LAZY_SODIUM_JNA = "net.java.dev.jna:jna:${Versions.LAZY_SODIUM_JNA}"
+    const val LAZY_SODIUM_ANDROID = "com.goterl:lazysodium-android:${Versions.LAZY_SODIUM_ANDROID}@aar"
+    const val LAZY_SODIUM_JNA_ANDROID = "net.java.dev.jna:jna:${Versions.LAZY_SODIUM_JNA_ANDROID}@aar"
+    const val SIGNAL_PROTOCOL = "org.whispersystems:signal-protocol-android:${Versions.SIGNAL_PROTOCOL}"
+
 }
 
 

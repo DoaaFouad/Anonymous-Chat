@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Anonymous Chat</string>
+
+    <!-- Activity - Public Key Generation -->
+    <string name="public_key_generation_title">Public Identifier key generation</string>
+    <string name="public_key_generation_btn_continue">Continue</string>
+
 </resources>
