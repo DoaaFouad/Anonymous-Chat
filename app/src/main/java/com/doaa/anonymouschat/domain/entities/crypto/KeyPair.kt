@@ -17,5 +17,5 @@ import org.whispersystems.libsignal.ecc.ECKeyPair
 data class KeyPairResult(
     val seed: ByteArray,
     val ed25519KeyPair: KeyPair,
-    val x25519KeyPair: ECKeyPair
+    val x25519KeyPair: ECKeyPair //Curve25519
 )

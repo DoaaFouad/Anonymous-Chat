@@ -11,11 +11,17 @@
 
 package com.doaa.anonymouschat.di
 
+import com.doaa.anonymouschat.presentation.main.conversation.ConversationViewModel
+import com.doaa.anonymouschat.presentation.main.join_chat.JoinChatViewModel
 import com.doaa.anonymouschat.presentation.main.public_key_generation.GeneratePublicKeyViewModel
+import com.doaa.anonymouschat.presentation.main.splash.SplashViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
 
-    viewModel { GeneratePublicKeyViewModel() }
+    viewModel { SplashViewModel(get()) }
+    viewModel { GeneratePublicKeyViewModel(get()) }
+    viewModel { JoinChatViewModel() }
+    viewModel { ConversationViewModel(get(), get()) }
 }

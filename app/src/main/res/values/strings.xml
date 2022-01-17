@@ -5,4 +5,14 @@
     <string name="public_key_generation_title">Public Identifier key generation</string>
     <string name="public_key_generation_btn_continue">Continue</string>
 
+    <!-- Activity - Join Chat -->
+    <string name="join_chat_title">Join Chat!</string>
+
+    <!-- Activity - Conversation -->
+    <string name="conversation_send">Send</string>
+
+    <!-- Error Handling -->
+    <string name="error_invalid">Invalid!</string>
+    <string name="error">Error!</string>
+
 </resources>

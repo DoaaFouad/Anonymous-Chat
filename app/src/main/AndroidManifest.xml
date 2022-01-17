@@ -11,14 +11,26 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.AnonymousChat">
 
-        <activity android:name=".presentation.main.public_key_generation.GeneratePublicKeyActivity">
+        <activity android:name=".presentation.main.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".presentation.main.join_chat.JoinChatActivity">
+
+        </activity>
+
+        <activity android:name=".presentation.main.public_key_generation.GeneratePublicKeyActivity">
+
+        </activity>
+
+        <activity android:name=".presentation.main.conversation.ConversationActivity">
+
         </activity>
     </application>
 

@@ -40,9 +40,11 @@ object Versions {
     const val KOIN = "2.0.1"
     const val KOIN_ANDROID = "2.0.1"
 
-    //Coroutines
+    // Asynchronous
     const val COROUTINES_CORE = "1.4.3"
     const val COROUTINES_ANDROID = "1.4.0"
+    const val KOVENANT = "3.3.0"
+    const val KOVENANT_ANDROID = "3.3.0"
 
     // Cryptography
     const val LAZY_SODIUM = "5.1.1"
@@ -50,6 +52,20 @@ object Versions {
     const val LAZY_SODIUM_ANDROID = "5.0.2"
     const val LAZY_SODIUM_JNA_ANDROID = "5.10.0"
     const val SIGNAL_PROTOCOL = "2.3.0"
+    const val ANDROIDX_SECURITY = "1.1.0-alpha03"
+    const val CURVE_25519 = "0.2.5"
+    const val PROTO_BUF = "3.5.1"
+
+    // Networking
+    const val RETROFIT = "2.7.1"
+    const val RETROFIT_CONVERTOR = "2.6.2"
+    const val RETROFIT_RXJAVA = "2.6.2"
+    const val OKHTTP = "3.12.1"
+    const val SOCKET_IO = "2.0.0"
+    const val GSON = "2.8.6"
+
+    // Parsing
+    const val JACKSON_DATABIND = "2.12.4"
 }
 
 object Libraries {
@@ -71,9 +87,11 @@ object Libraries {
     const val KOIN = "org.koin:koin-core:${Versions.KOIN}"
     const val KOIN_ANDROID = "org.koin:koin-androidx-viewmodel:${Versions.KOIN_ANDROID}"
 
-    // Coroutines
+    // Asynchronous
     const val COROUTINES_CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.COROUTINES_CORE}"
     const val COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.COROUTINES_ANDROID}"
+    const val KOVENANT = "nl.komponents.kovenant:kovenant:${Versions.KOVENANT}"
+    const val KOVENANT_ANDROID = "nl.komponents.kovenant:kovenant-android:${Versions.KOVENANT_ANDROID}"
 
     // Cryptography
     const val LAZY_SODIUM = "com.goterl:lazysodium-java:${Versions.LAZY_SODIUM}"
@@ -81,6 +99,15 @@ object Libraries {
     const val LAZY_SODIUM_ANDROID = "com.goterl:lazysodium-android:${Versions.LAZY_SODIUM_ANDROID}@aar"
     const val LAZY_SODIUM_JNA_ANDROID = "net.java.dev.jna:jna:${Versions.LAZY_SODIUM_JNA_ANDROID}@aar"
     const val SIGNAL_PROTOCOL = "org.whispersystems:signal-protocol-android:${Versions.SIGNAL_PROTOCOL}"
+    const val ANDROIDX_SECURITY = "androidx.security:security-crypto:${Versions.ANDROIDX_SECURITY}"
+    const val CURVE_25519 = "org.whispersystems:curve25519-java:${Versions.CURVE_25519}"
+    const val PROTO_BUF = "com.google.protobuf:protobuf-java:${Versions.PROTO_BUF}"
+
+    // Networking
+    const val OKHTTP = "com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP}"
+    const val JACKSON_DATABINDING = "com.fasterxml.jackson.core:jackson-databind:${Versions.JACKSON_DATABIND}"
+    const val SOCKET_IO = "io.socket:socket.io-client:${Versions.SOCKET_IO}"
+    const val GSON = "com.google.code.gson:gson:${Versions.GSON}"
 
 }
 

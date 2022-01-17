@@ -11,10 +11,11 @@
 
 package com.doaa.anonymouschat.presentation.main.public_key_generation
 
+import com.doaa.anonymouschat.data.cache.EncryptedSharedPreferenceRepository
 import com.doaa.anonymouschat.presentation.base.BaseViewModel
 import com.doaa.anonymouschat.utils.KeyPairGenerator
 
-class GeneratePublicKeyViewModel :
+class GeneratePublicKeyViewModel(val sharedPreferenceRepository: EncryptedSharedPreferenceRepository) :
     BaseViewModel<GeneratePublicKeyContract.Intent, GeneratePublicKeyContract.State, GeneratePublicKeyContract.Effect>() {
 
     override fun createInitialState(): GeneratePublicKeyContract.State {
@@ -38,5 +39,9 @@ class GeneratePublicKeyViewModel :
                 )
             )
         }
+
+        sharedPreferenceRepository.setPublicKey(keyPairResult?.ed25519KeyPair?.publicKey?.asHexString ?: "")
+       // sharedPreferenceRepository.setPrivateKey(keyPairResult?.x25519KeyPair?.privateKey?.serialize().contentToString())
+        sharedPreferenceRepository.setPrivateKey(keyPairResult?.ed25519KeyPair?.secretKey?.asHexString ?: "")
     }
 }

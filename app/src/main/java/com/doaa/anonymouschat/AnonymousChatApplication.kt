@@ -12,6 +12,7 @@
 package com.doaa.anonymouschat
 
 import android.app.Application
+import com.doaa.anonymouschat.di.repositoryModule
 import com.doaa.anonymouschat.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -28,9 +29,8 @@ class AnonymousChatApplication : Application() {
         org.koin.core.context.startKoin {
             androidLogger()
             androidContext(this@AnonymousChatApplication)
-            modules(listOf(viewModelModule))
+            modules(listOf(viewModelModule, repositoryModule))
         }
     }
-
 
 }

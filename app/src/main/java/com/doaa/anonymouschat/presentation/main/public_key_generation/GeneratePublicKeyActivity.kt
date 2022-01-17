@@ -15,9 +15,10 @@ import androidx.lifecycle.lifecycleScope
 import com.doaa.anonymouschat.databinding.ActivityGeneratePublicKeyBinding
 import com.doaa.anonymouschat.domain.entities.crypto.KeyPairResult
 import com.doaa.anonymouschat.presentation.base.BaseActivity
+import com.doaa.anonymouschat.presentation.main.conversation.ConversationActivity
 import com.doaa.anonymouschat.utils.crypto.hexEncodedPublicKey
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlinx.coroutines.flow.collect
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GeneratePublicKeyActivity :
     BaseActivity<GeneratePublicKeyContract.Intent, GeneratePublicKeyContract.State, GeneratePublicKeyContract.Effect, ActivityGeneratePublicKeyBinding>() {
@@ -51,9 +52,17 @@ class GeneratePublicKeyActivity :
         }
     }
 
-    private fun updatePublicKeyView(keyPairResult: KeyPairResult?){
+    private fun updatePublicKeyView(keyPairResult: KeyPairResult?) {
         keyPairResult?.let { _keyPairResult ->
-            binding?.tvPublicKey?.text = _keyPairResult.x25519KeyPair.hexEncodedPublicKey
+            binding?.tvPublicKey?.setText(_keyPairResult.x25519KeyPair.hexEncodedPublicKey)
+        }
+    }
+
+    override fun setListeners() {
+        super.setListeners()
+
+        binding?.btnContinue?.setOnClickListener {
+            navigateToActivity(ConversationActivity::class.java, null)
         }
     }
 

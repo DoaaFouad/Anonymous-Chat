@@ -50,9 +50,11 @@ dependencies {
     implementation Libraries.CONSTRAINT_LAYOUT
     implementation Libraries.GLIDE
 
-    // Coroutines
+    // Asynchronous
     implementation Libraries.COROUTINES_CORE
     implementation Libraries.COROUTINES_ANDROID
+    implementation Libraries.KOVENANT
+    implementation Libraries.KOVENANT_ANDROID
 
     // DI
     implementation Libraries.KOIN
@@ -63,9 +65,14 @@ dependencies {
     implementation Libraries.ARCH_COMPONENT_LIFECYCLE
 
     // Crypto
-    //implementation Libraries.LAZY_SODIUM
-  //  implementation Libraries.LAZY_SODIUM_JNA
     implementation Libraries.LAZY_SODIUM_ANDROID
     implementation Libraries.LAZY_SODIUM_JNA_ANDROID
     implementation Libraries.SIGNAL_PROTOCOL
+    implementation Libraries.ANDROIDX_SECURITY
+
+    // Networking
+    implementation Libraries.OKHTTP
+    implementation Libraries.JACKSON_DATABINDING
+    implementation Libraries.SOCKET_IO
+    implementation Libraries.GSON
 }

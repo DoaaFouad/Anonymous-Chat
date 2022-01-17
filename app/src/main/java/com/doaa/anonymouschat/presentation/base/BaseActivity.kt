@@ -14,6 +14,7 @@ package com.doaa.anonymouschat.presentation.base
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.viewbinding.ViewBinding
@@ -51,6 +52,10 @@ abstract class BaseActivity<I : ViewIntent, S : ViewState, E : ViewEffect, V : V
         val intent = Intent(this, destination)
         bundle?.let { intent.putExtras(bundle) }
         startActivity(intent)
+    }
+
+    fun showLongToast(message: String){
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
     protected fun showProgress(progressBar: ContentLoadingProgressBar?) {
