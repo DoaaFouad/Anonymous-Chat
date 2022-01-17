@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_start"
@@ -22,18 +23,49 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:text="@string/public_key_generation_title"
+        android:textSize="24sp"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"/>
 
-    <androidx.appcompat.widget.AppCompatEditText
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_public_key"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:padding="12dp"
+        android:lineSpacingExtra="0.5dp"
+        android:background="@drawable/tv_background_primary"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_copy"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_copy"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@id/iv_share"
+        app:layout_constraintTop_toBottomOf="@id/tv_public_key"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_share"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_share"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toEndOf="@id/iv_copy"
+        app:layout_constraintTop_toBottomOf="@id/tv_public_key"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"/>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -41,11 +73,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_primary"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
         android:text="@string/public_key_generation_btn_continue"
-        app:layout_constraintTop_toBottomOf="@id/tv_public_key"
+        app:layout_constraintTop_toBottomOf="@id/iv_share"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"/>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

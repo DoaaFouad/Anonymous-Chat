@@ -41,7 +41,6 @@ class GeneratePublicKeyViewModel(val sharedPreferenceRepository: EncryptedShared
         }
 
         sharedPreferenceRepository.setPublicKey(keyPairResult?.ed25519KeyPair?.publicKey?.asHexString ?: "")
-       // sharedPreferenceRepository.setPrivateKey(keyPairResult?.x25519KeyPair?.privateKey?.serialize().contentToString())
         sharedPreferenceRepository.setPrivateKey(keyPairResult?.ed25519KeyPair?.secretKey?.asHexString ?: "")
     }
 }

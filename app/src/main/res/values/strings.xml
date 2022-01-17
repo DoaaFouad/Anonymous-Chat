@@ -2,8 +2,9 @@
     <string name="app_name">Anonymous Chat</string>
 
     <!-- Activity - Public Key Generation -->
-    <string name="public_key_generation_title">Public Identifier key generation</string>
+    <string name="public_key_generation_title">Public Key Identifier</string>
     <string name="public_key_generation_btn_continue">Continue</string>
+    <string name="public_key_generation_copy_success">Public Key is copied to Clipboard!</string>
 
     <!-- Activity - Join Chat -->
     <string name="join_chat_title">Join Chat!</string>

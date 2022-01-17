@@ -11,14 +11,22 @@
 
 package com.doaa.anonymouschat.presentation.main.public_key_generation
 
+import android.R.attr.label
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.lifecycleScope
+import com.doaa.anonymouschat.R
 import com.doaa.anonymouschat.databinding.ActivityGeneratePublicKeyBinding
 import com.doaa.anonymouschat.domain.entities.crypto.KeyPairResult
 import com.doaa.anonymouschat.presentation.base.BaseActivity
 import com.doaa.anonymouschat.presentation.main.conversation.ConversationActivity
-import com.doaa.anonymouschat.utils.crypto.hexEncodedPublicKey
+import com.doaa.anonymouschat.utils.copyPublicKeyToClipBoard
+import com.doaa.anonymouschat.utils.sharePublicKey
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class GeneratePublicKeyActivity :
     BaseActivity<GeneratePublicKeyContract.Intent, GeneratePublicKeyContract.State, GeneratePublicKeyContract.Effect, ActivityGeneratePublicKeyBinding>() {
@@ -54,7 +62,7 @@ class GeneratePublicKeyActivity :
 
     private fun updatePublicKeyView(keyPairResult: KeyPairResult?) {
         keyPairResult?.let { _keyPairResult ->
-            binding?.tvPublicKey?.setText(_keyPairResult.x25519KeyPair.hexEncodedPublicKey)
+            binding?.tvPublicKey?.setText(_keyPairResult.ed25519KeyPair.publicKey?.asHexString)
         }
     }
 
@@ -63,6 +71,15 @@ class GeneratePublicKeyActivity :
 
         binding?.btnContinue?.setOnClickListener {
             navigateToActivity(ConversationActivity::class.java, null)
+        }
+
+        binding?.ivCopy?.setOnClickListener {
+            copyPublicKeyToClipBoard("Public Key", binding?.tvPublicKey?.text.toString())
+            showLongToast(getString(R.string.public_key_generation_copy_success))
+        }
+
+        binding?.ivShare?.setOnClickListener {
+            sharePublicKey(binding?.tvPublicKey?.text.toString())
         }
     }
 
