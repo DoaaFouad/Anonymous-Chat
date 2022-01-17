@@ -50,13 +50,13 @@ class JoinChatActivity :
 
     private fun navigateToConversationActivity() {
         val enteredPublicKey = binding?.etChatPublicKey?.text.toString()
-        if (Validation.isPublicKeyValid(enteredPublicKey, false)) {
+       // if (Validation.isPublicKeyValid(enteredPublicKey, false)) {
             val bundle = Bundle()
             bundle.putString(BundleKeys.CONVERSATION_PUBLIC_KEY, enteredPublicKey)
             navigateToActivity(ConversationActivity::class.java, bundle)
-        } else {
-            showLongToast(getString(R.string.error_invalid))
-        }
+       // } else {
+          //  showLongToast(getString(R.string.error_invalid))
+       // }
     }
 
     override fun getViewBinding(): ActivityJoinChatBinding {

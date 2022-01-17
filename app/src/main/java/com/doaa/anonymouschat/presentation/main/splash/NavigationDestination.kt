@@ -11,7 +11,7 @@
 
 package com.doaa.anonymouschat.presentation.main.splash
 
-sealed class Navigation {
-    object PublicKeyGeneration : Navigation()
-    object UserHome : Navigation()
+sealed class NavigationDestination {
+    object PublicKeyGeneration : NavigationDestination()
+    object UserHome : NavigationDestination()
 }

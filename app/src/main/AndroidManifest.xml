@@ -32,6 +32,8 @@
         <activity android:name=".presentation.main.conversation.ConversationActivity">
 
         </activity>
+
+        <activity android:name=".presentation.main.user_home.UserHomeActivity"/>
     </application>
 
 </manifest>

@@ -27,4 +27,10 @@ class EncryptedSharedPreferenceRepository(private val wrapper: EncryptedSharedPr
     fun setPrivateKey(privateKey: String) =
         wrapper.putString(SharedPreferencesKeys.PRIVATE_KEY, privateKey)
 
+    fun getUserName() =
+        wrapper.getString(SharedPreferencesKeys.USER_NAME, "") ?: ""
+
+    fun setUserName(userName: String) =
+        wrapper.putString(SharedPreferencesKeys.USER_NAME, userName)
+
 }

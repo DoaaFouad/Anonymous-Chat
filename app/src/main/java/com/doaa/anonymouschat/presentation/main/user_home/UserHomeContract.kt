@@ -1,34 +1,34 @@
 /*
  * *
- * Created by Doaa Fouad on 1/17/22 7:09 PM
+ * Created by Doaa Fouad on 1/17/22 8:39 PM
  * doaa_fouad2006@hotmail.com
  * github.com/DoaaFouad
  * linkedin.com/in/doaafouad/
  * Copyright (c) 2022 . All rights reserved.
- * Last modified 1/17/22 7:09 PM
+ * Last modified 1/17/22 8:39 PM
  *
  */
 
-package com.doaa.anonymouschat.presentation.main.splash
+package com.doaa.anonymouschat.presentation.main.user_home
 
 import com.doaa.anonymouschat.presentation.base.ViewEffect
 import com.doaa.anonymouschat.presentation.base.ViewIntent
 import com.doaa.anonymouschat.presentation.base.ViewState
 
-class SplashContract {
+class UserHomeContract {
 
     sealed class Intent : ViewIntent {
-        object CheckNavigationFlow : Intent()
+        object GetUserInfo : Intent()
     }
 
     data class State(
-        val splashViewState: SplashViewState
+        val userHomeViewState: UserHomeViewState
     ) : ViewState
 
-    sealed class SplashViewState {
-        object Idle : SplashViewState()
-        object Loading : SplashViewState()
-        data class NavigationFLow(val navigation: NavigationDestination): SplashViewState()
+    sealed class UserHomeViewState {
+        object Idle : UserHomeViewState()
+        object Loading : UserHomeViewState()
+        data class UserInfoSuccess(val userName: String?, val publicKey: String?): UserHomeViewState()
     }
 
     sealed class Effect : ViewEffect {

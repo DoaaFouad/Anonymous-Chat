@@ -34,13 +34,13 @@ class SplashViewModel(val sharedPreferenceRepository: EncryptedSharedPreferenceR
         if (publicKey.isEmpty()) {
             setState {
                 copy(
-                    splashViewState = SplashContract.SplashViewState.NavigationFLow(Navigation.PublicKeyGeneration)
+                    splashViewState = SplashContract.SplashViewState.NavigationFLow(NavigationDestination.PublicKeyGeneration)
                 )
             }
         } else {
             setState {
                 copy(
-                    splashViewState = SplashContract.SplashViewState.NavigationFLow(Navigation.UserHome)
+                    splashViewState = SplashContract.SplashViewState.NavigationFLow(NavigationDestination.UserHome)
                 )
             }
         }

@@ -22,6 +22,7 @@ import com.doaa.anonymouschat.databinding.ActivityGeneratePublicKeyBinding
 import com.doaa.anonymouschat.domain.entities.crypto.KeyPairResult
 import com.doaa.anonymouschat.presentation.base.BaseActivity
 import com.doaa.anonymouschat.presentation.main.conversation.ConversationActivity
+import com.doaa.anonymouschat.presentation.main.user_home.UserHomeActivity
 import com.doaa.anonymouschat.utils.copyPublicKeyToClipBoard
 import com.doaa.anonymouschat.utils.sharePublicKey
 import kotlinx.coroutines.flow.collect
@@ -70,7 +71,7 @@ class GeneratePublicKeyActivity :
         super.setListeners()
 
         binding?.btnContinue?.setOnClickListener {
-            navigateToActivity(ConversationActivity::class.java, null)
+            navigateToActivity(UserHomeActivity::class.java, null)
         }
 
         binding?.ivCopy?.setOnClickListener {

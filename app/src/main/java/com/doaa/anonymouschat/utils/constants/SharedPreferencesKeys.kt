@@ -14,4 +14,5 @@ package com.doaa.anonymouschat.utils.constants
 object SharedPreferencesKeys {
     const val PUBLIC_KEY = "public_key"
     const val PRIVATE_KEY = "private_key"
+    const val USER_NAME = "user_name"
 }

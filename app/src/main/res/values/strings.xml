@@ -6,8 +6,13 @@
     <string name="public_key_generation_btn_continue">Continue</string>
     <string name="public_key_generation_copy_success">Public Key is copied to Clipboard!</string>
 
+    <!-- Activity - User home -->
+    <string name="user_home_no_conversations">No Conversations yet!</string>
+
     <!-- Activity - Join Chat -->
-    <string name="join_chat_title">Join Chat!</string>
+    <string name="join_chat_title">Join Chat</string>
+    <string name="join_chat_hint_enter_user_public_key">Enter user public key</string>
+    <string name="join_chat_say_hello">Say Hello!</string>
 
     <!-- Activity - Conversation -->
     <string name="conversation_send">Send</string>

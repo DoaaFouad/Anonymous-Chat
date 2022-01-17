@@ -15,6 +15,7 @@ import com.doaa.anonymouschat.presentation.main.conversation.ConversationViewMod
 import com.doaa.anonymouschat.presentation.main.join_chat.JoinChatViewModel
 import com.doaa.anonymouschat.presentation.main.public_key_generation.GeneratePublicKeyViewModel
 import com.doaa.anonymouschat.presentation.main.splash.SplashViewModel
+import com.doaa.anonymouschat.presentation.main.user_home.UserHomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -22,6 +23,7 @@ val viewModelModule = module {
 
     viewModel { SplashViewModel(get()) }
     viewModel { GeneratePublicKeyViewModel(get()) }
+    viewModel { UserHomeViewModel(get()) }
     viewModel { JoinChatViewModel() }
     viewModel { ConversationViewModel(get(), get()) }
 }

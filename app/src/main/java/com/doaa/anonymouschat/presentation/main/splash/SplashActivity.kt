@@ -17,7 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import com.doaa.anonymouschat.databinding.ActivitySplashBinding
 import com.doaa.anonymouschat.presentation.base.BaseActivity
 import com.doaa.anonymouschat.presentation.main.public_key_generation.GeneratePublicKeyActivity
-import kotlinx.coroutines.delay
+import com.doaa.anonymouschat.presentation.main.user_home.UserHomeActivity
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -50,14 +50,16 @@ class SplashActivity :
         }, 1000)
     }
 
-    private fun navigate(navigation: Navigation){
-        when(navigation){
-            Navigation.UserHome -> {
-             //   navigateToActivity()
+    private fun navigate(navigation: NavigationDestination) {
+        when (navigation) {
+            NavigationDestination.UserHome -> {
+                navigateToActivity(UserHomeActivity::class.java)
+                finish()
             }
 
-            Navigation.PublicKeyGeneration -> {
+            NavigationDestination.PublicKeyGeneration -> {
                 navigateToActivity(GeneratePublicKeyActivity::class.java)
+                finish()
             }
         }
     }
