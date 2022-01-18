@@ -13,7 +13,7 @@ package com.doaa.anonymouschat.presentation.main.user_home
 
 import androidx.recyclerview.widget.RecyclerView
 import com.doaa.anonymouschat.databinding.RowAllConversationsBinding
-import com.doaa.anonymouschat.domain.entities.messaging.ConversationListItem
+import com.doaa.anonymouschat.domain.entities.messaging.ConversationListItemModel
 
 class AllConversationViewHolder(
     val rowBinding: RowAllConversationsBinding,
@@ -21,7 +21,7 @@ class AllConversationViewHolder(
 ) :
     RecyclerView.ViewHolder(rowBinding.root) {
 
-    fun initRow(model: ConversationListItem) {
+    fun initRow(model: ConversationListItemModel) {
         rowBinding.tvIdentifier.text = model.identifierName
         rowBinding.tvMessage.text = model.lastMessage?.decryptedMessage
 

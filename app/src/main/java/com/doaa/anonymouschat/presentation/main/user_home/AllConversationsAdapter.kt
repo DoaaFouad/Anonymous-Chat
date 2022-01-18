@@ -15,12 +15,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.doaa.anonymouschat.databinding.RowAllConversationsBinding
-import com.doaa.anonymouschat.domain.entities.messaging.ConversationListItem
+import com.doaa.anonymouschat.domain.entities.messaging.ConversationListItemModel
 
 class AllConversationsAdapter(val allConversationsListener: AllConversationsListener) :
     RecyclerView.Adapter<AllConversationViewHolder>() {
 
-    private var conversationList: MutableList<ConversationListItem> = arrayListOf()
+    private var conversationList: MutableList<ConversationListItemModel> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllConversationViewHolder {
         val itemBinding =
@@ -36,14 +36,14 @@ class AllConversationsAdapter(val allConversationsListener: AllConversationsList
         return holder.initRow(conversationList[position])
     }
 
-    fun setData(conversationListData: MutableList<ConversationListItem>?) {
+    fun setData(conversationListData: MutableList<ConversationListItemModel>?) {
         conversationListData?.let {
             conversationList = conversationListData
         }
         notifyDataSetChanged()
     }
 
-    fun addToData(item: ConversationListItem) {
+    fun addToData(item: ConversationListItemModel) {
         conversationList.add(0, item)
         notifyItemInserted(0)
     }

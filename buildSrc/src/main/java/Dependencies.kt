@@ -64,6 +64,9 @@ object Versions {
     const val SOCKET_IO = "2.0.0"
     const val GSON = "2.8.6"
 
+    //Data
+    const val ROOM = "2.2.6"
+
     // Parsing
     const val JACKSON_DATABIND = "2.12.4"
 }
@@ -108,6 +111,10 @@ object Libraries {
     const val JACKSON_DATABINDING = "com.fasterxml.jackson.core:jackson-databind:${Versions.JACKSON_DATABIND}"
     const val SOCKET_IO = "io.socket:socket.io-client:${Versions.SOCKET_IO}"
     const val GSON = "com.google.code.gson:gson:${Versions.GSON}"
+
+    // Data
+    const val ROOM = "androidx.room:room-runtime:${Versions.ROOM}"
+    const val ROOM_COMPILER = "androidx.room:room-compiler:${Versions.ROOM}"
 
 }
 

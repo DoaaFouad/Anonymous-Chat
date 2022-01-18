@@ -9,7 +9,7 @@
  *
  */
 
-package com.doaa.anonymouschat.data.messaging
+package com.doaa.anonymouschat.data.repositories
 
 class MessagingRepository {
 }

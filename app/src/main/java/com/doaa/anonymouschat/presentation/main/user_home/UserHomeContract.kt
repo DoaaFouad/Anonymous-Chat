@@ -11,7 +11,7 @@
 
 package com.doaa.anonymouschat.presentation.main.user_home
 
-import com.doaa.anonymouschat.domain.entities.messaging.ConversationListItem
+import com.doaa.anonymouschat.domain.entities.messaging.ConversationListItemModel
 import com.doaa.anonymouschat.presentation.base.ViewEffect
 import com.doaa.anonymouschat.presentation.base.ViewIntent
 import com.doaa.anonymouschat.presentation.base.ViewState
@@ -30,10 +30,11 @@ class UserHomeContract {
         object Idle : UserHomeViewState()
         object Loading : UserHomeViewState()
         data class UserInfoSuccess(val userName: String?, val publicKey: String?): UserHomeViewState()
-        data class NewMessage(val conversationItemList: ConversationListItem): UserHomeViewState()
+        data class NewMessage(val conversationItemList: ConversationListItemModel): UserHomeViewState()
+        data class GetCachedConversationItemsList(val conversationItemList: MutableList<ConversationListItemModel>): UserHomeViewState()
     }
 
     sealed class Effect : ViewEffect {
-        data class ShowServerErrorToast(val message: String) : Effect()
+        data class ShowServerErrorToast(val message: String?) : Effect()
     }
 }

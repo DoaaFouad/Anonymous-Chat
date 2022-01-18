@@ -11,7 +11,9 @@
 
 package com.doaa.anonymouschat.domain.entities.messaging
 
-data class ConversationListItem(
+import com.doaa.anonymouschat.domain.entities.ItemModel
+
+data class ConversationListItemModel(
     var identifierName: String? = null,
     var lastMessage: Message? = null
-)
+): ItemModel

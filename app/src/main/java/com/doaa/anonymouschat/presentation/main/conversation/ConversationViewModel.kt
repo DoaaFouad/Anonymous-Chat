@@ -11,7 +11,7 @@
 
 package com.doaa.anonymouschat.presentation.main.conversation
 
-import com.doaa.anonymouschat.data.cache.EncryptedSharedPreferenceRepository
+import com.doaa.anonymouschat.data.repositories.EncryptedSharedPreferenceRepository
 import com.doaa.anonymouschat.data.socket.SocketBuilder
 import com.doaa.anonymouschat.data.socket.SocketEvents
 import com.doaa.anonymouschat.domain.entities.messaging.Message

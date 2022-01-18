@@ -17,8 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.doaa.anonymouschat.R
 import com.doaa.anonymouschat.databinding.ActivityUserHomeBinding
-import com.doaa.anonymouschat.domain.entities.messaging.ConversationListItem
-import com.doaa.anonymouschat.domain.entities.messaging.Message
+import com.doaa.anonymouschat.domain.entities.messaging.ConversationListItemModel
 import com.doaa.anonymouschat.presentation.base.BaseActivity
 import com.doaa.anonymouschat.presentation.main.conversation.ConversationActivity
 import com.doaa.anonymouschat.presentation.main.join_chat.JoinChatActivity
@@ -29,7 +28,8 @@ import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserHomeActivity :
-    BaseActivity<UserHomeContract.Intent, UserHomeContract.State, UserHomeContract.Effect, ActivityUserHomeBinding>(), AllConversationsListener {
+    BaseActivity<UserHomeContract.Intent, UserHomeContract.State, UserHomeContract.Effect, ActivityUserHomeBinding>(),
+    AllConversationsListener {
 
     override val viewModel by viewModel<UserHomeViewModel>()
 
@@ -51,6 +51,13 @@ class UserHomeActivity :
                         hideConversationsNullView()
                         addToData(state.conversationItemList)
                     }
+
+                    is UserHomeContract.UserHomeViewState.GetCachedConversationItemsList -> {
+                        if (state.conversationItemList.isNullOrEmpty().not()) {
+                            hideConversationsNullView()
+                            populateData(state.conversationItemList)
+                        }
+                    }
                 }
 
             }
@@ -63,6 +70,7 @@ class UserHomeActivity :
         initRecyclerviewer()
         viewModel.setIntent(UserHomeContract.Intent.GetUserInfo)
     }
+
     override fun setListeners() {
         super.setListeners()
 
@@ -80,7 +88,7 @@ class UserHomeActivity :
         }
     }
 
-    private fun initUserInfo(userName: String?, publicKey: String?){
+    private fun initUserInfo(userName: String?, publicKey: String?) {
         binding?.tvAnonymousName?.text = userName
         binding?.tvPublicKey?.text = publicKey
     }
@@ -91,15 +99,15 @@ class UserHomeActivity :
         binding?.rvConversations?.adapter = allConversationAdapter
     }
 
-    private fun populateData(conversationList: MutableList<ConversationListItem>?) {
+    private fun populateData(conversationList: MutableList<ConversationListItemModel>?) {
         allConversationAdapter.setData(conversationList)
     }
 
-    private fun addToData(item: ConversationListItem) {
+    private fun addToData(item: ConversationListItemModel) {
         allConversationAdapter.addToData(item)
     }
 
-    private fun hideConversationsNullView(){
+    private fun hideConversationsNullView() {
         binding?.tvNoConversations?.visibility = View.GONE
     }
 

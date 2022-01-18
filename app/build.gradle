@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -75,4 +76,8 @@ dependencies {
     implementation Libraries.JACKSON_DATABINDING
     implementation Libraries.SOCKET_IO
     implementation Libraries.GSON
+
+    // Data
+    implementation Libraries.ROOM
+    kapt Libraries.ROOM_COMPILER
 }

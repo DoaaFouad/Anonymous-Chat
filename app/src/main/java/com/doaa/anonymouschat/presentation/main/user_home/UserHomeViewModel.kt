@@ -11,22 +11,25 @@
 
 package com.doaa.anonymouschat.presentation.main.user_home
 
-import com.doaa.anonymouschat.data.cache.EncryptedSharedPreferenceRepository
+import androidx.lifecycle.viewModelScope
+import com.doaa.anonymouschat.data.repositories.ConversationItemListRepository
+import com.doaa.anonymouschat.data.repositories.EncryptedSharedPreferenceRepository
 import com.doaa.anonymouschat.data.socket.SocketBuilder
 import com.doaa.anonymouschat.data.socket.SocketEvents
-import com.doaa.anonymouschat.domain.entities.messaging.ConversationListItem
+import com.doaa.anonymouschat.domain.entities.messaging.ConversationListItemModel
 import com.doaa.anonymouschat.domain.entities.messaging.Message
 import com.doaa.anonymouschat.presentation.base.BaseViewModel
-import com.doaa.anonymouschat.presentation.main.conversation.ConversationContract
 import com.google.gson.Gson
 import com.goterl.lazysodium.utils.Key
 import com.goterl.lazysodium.utils.KeyPair
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
+import kotlinx.coroutines.launch
 
 class UserHomeViewModel(
     val sharedPreferenceRepository: EncryptedSharedPreferenceRepository,
-    val socketBuilder: SocketBuilder
+    val socketBuilder: SocketBuilder,
+    val conversationItemListRepository: ConversationItemListRepository
 ) :
     BaseViewModel<UserHomeContract.Intent, UserHomeContract.State, UserHomeContract.Effect>() {
 
@@ -42,7 +45,12 @@ class UserHomeViewModel(
     override suspend fun handleIntent(intent: UserHomeContract.Intent) {
         when (intent) {
             is UserHomeContract.Intent.GetUserInfo -> {
+
                 getUserInfo()
+
+                viewModelScope?.launch {
+                    getConversationItemsList()
+                }
             }
         }
     }
@@ -56,15 +64,8 @@ class UserHomeViewModel(
                 val data = it[0].toString()
                 val message = Gson().fromJson(data, Message::class.java)
 
-                if (message.senderPublicKey == myPublicKey?.asHexString) {
-                    val senderPublicKey = Key.fromHexString(message.senderPublicKey)
-                    val decryptKeyPair = KeyPair(senderPublicKey, myPrivateKey)
-                    //  val decryptedMessage: String = lazySodium.cryptoBoxOpenEasy(message.encryptedMessage, nonce, decryptKeyPair)
+                if (message.senderPublicKey != myPublicKey?.asHexString) {
 
-                    message.isSent = true
-                    message.decryptedMessage = message.encryptedMessage //decryptedMessage
-
-                } else {
                     val senderPublicKey = Key.fromHexString(message.senderPublicKey)
                     val decryptKeyPair = KeyPair(senderPublicKey, myPrivateKey)
                     //      val decryptedMessage: String = lazySodium.cryptoBoxOpenEasy(message.encryptedMessage, nonce, decryptKeyPair)
@@ -72,15 +73,21 @@ class UserHomeViewModel(
                     message.isSent = false
                     message.decryptedMessage = message.encryptedMessage //decryptedMessage
 
+                    val conversationListItem = ConversationListItemModel(
+                        identifierName = message.senderPublicKey,
+                        lastMessage = message
+                    )
                     setState {
                         copy(
                             userHomeViewState = UserHomeContract.UserHomeViewState.NewMessage(
-                                ConversationListItem(
-                                    identifierName = message.senderPublicKey,
-                                    lastMessage = message
-                                )
+                                conversationListItem
                             )
                         )
+
+
+                    }
+                    viewModelScope?.launch {
+                        addToConversationItemList(conversationListItem)
                     }
                 }
             }
@@ -124,5 +131,31 @@ class UserHomeViewModel(
 
     private fun getMyPrivateKey(): Key {
         return Key.fromHexString(sharedPreferenceRepository.getPrivateKey())
+    }
+
+    private suspend fun getConversationItemsList() {
+        try {
+            val response = conversationItemListRepository.getConversationItemList().await()
+            setState {
+                copy(
+                    userHomeViewState = UserHomeContract.UserHomeViewState.GetCachedConversationItemsList(
+                        conversationItemList = response as MutableList,
+                    )
+                )
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            setEffect { UserHomeContract.Effect.ShowServerErrorToast(com.doaa.anonymouschat.domain.entities.status.Error.Generic.message) }
+        }
+    }
+
+    private suspend fun addToConversationItemList(itemModel: ConversationListItemModel) {
+        try {
+            conversationItemListRepository.addToConversationItemList(itemModel)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            setEffect { UserHomeContract.Effect.ShowServerErrorToast(com.doaa.anonymouschat.domain.entities.status.Error.Generic.message) }
+        }
     }
 }

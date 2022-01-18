@@ -11,7 +11,7 @@
 
 package com.doaa.anonymouschat.presentation.main.splash
 
-import com.doaa.anonymouschat.data.cache.EncryptedSharedPreferenceRepository
+import com.doaa.anonymouschat.data.repositories.EncryptedSharedPreferenceRepository
 import com.doaa.anonymouschat.presentation.base.BaseViewModel
 
 class SplashViewModel(val sharedPreferenceRepository: EncryptedSharedPreferenceRepository) :

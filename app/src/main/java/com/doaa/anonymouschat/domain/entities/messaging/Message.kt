@@ -25,9 +25,9 @@ data class Message(
     @SerializedName("encrypted_message")
     var encryptedMessage: String? = null,
 
-    var isSent: Boolean ? = null,
+    var isSent: Boolean? = null,
 
-    var decryptedMessage: String ? = null
+    var decryptedMessage: String? = null
 
 ){
 

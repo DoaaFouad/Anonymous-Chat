@@ -11,11 +11,9 @@
 
 package com.doaa.anonymouschat.presentation.main.public_key_generation
 
-import com.doaa.anonymouschat.data.cache.EncryptedSharedPreferenceRepository
+import com.doaa.anonymouschat.data.repositories.EncryptedSharedPreferenceRepository
 import com.doaa.anonymouschat.presentation.base.BaseViewModel
 import com.doaa.anonymouschat.utils.KeyPairGenerator
-import com.goterl.lazysodium.LazySodiumAndroid
-import com.goterl.lazysodium.SodiumAndroid
 import kotlin.random.Random
 
 class GeneratePublicKeyViewModel(val sharedPreferenceRepository: EncryptedSharedPreferenceRepository) :

@@ -12,8 +12,9 @@
 package com.doaa.anonymouschat.di
 
 import android.content.Context
-import com.doaa.anonymouschat.data.cache.EncryptedSharedPreferenceRepository
+import com.doaa.anonymouschat.data.repositories.EncryptedSharedPreferenceRepository
 import com.doaa.anonymouschat.data.cache.EncryptedSharedPreferencesWrapper
+import com.doaa.anonymouschat.data.repositories.ConversationItemListRepository
 import com.doaa.anonymouschat.data.socket.SocketBuilder
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -21,6 +22,7 @@ import org.koin.dsl.module
 val repositoryModule = module {
 
     single { EncryptedSharedPreferenceRepository(get()) }
+    single { ConversationItemListRepository(get()) }
     single {
         EncryptedSharedPreferencesWrapper(
             encryptedSharedPreferences = this.androidContext().getSharedPreferences(
