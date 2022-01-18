@@ -19,6 +19,7 @@ import com.doaa.anonymouschat.presentation.base.BaseViewModel
 import com.google.gson.Gson
 import com.goterl.lazysodium.LazySodiumAndroid
 import com.goterl.lazysodium.SodiumAndroid
+import com.goterl.lazysodium.interfaces.SecretBox
 import com.goterl.lazysodium.utils.Key
 import com.goterl.lazysodium.utils.KeyPair
 import io.socket.client.Socket
@@ -35,8 +36,10 @@ class ConversationViewModel(
     private var myPrivateKey: Key? = null
 
     private val lazySodium by lazy { LazySodiumAndroid(SodiumAndroid()) }
+    val nonce: ByteArray = lazySodium.nonce(SecretBox.NONCEBYTES)
 
     private val socket by lazy { socketBuilder.socketObject }
+
 
     private val onConnectError: Emitter.Listener =
         Emitter.Listener {
@@ -70,10 +73,10 @@ class ConversationViewModel(
                 if (message.senderPublicKey == myPublicKey?.asHexString) {
                     val senderPublicKey = Key.fromHexString(message.senderPublicKey)
                     val decryptKeyPair = KeyPair(senderPublicKey, myPrivateKey)
-                    //  val decryptedMessage: String = lazySodium.cryptoBoxOpenEasy(message.encryptedMessage, nonce, decryptKeyPair)
+                    val decryptedMessage: String = lazySodium.cryptoBoxOpenEasy(message.encryptedMessage, nonce, decryptKeyPair)
 
                     message.isSent = true
-                    message.decryptedMessage = message.encryptedMessage //decryptedMessage
+                    message.decryptedMessage = decryptedMessage
 
                     setState {
                         copy(
@@ -86,10 +89,10 @@ class ConversationViewModel(
                 } else {
                     val senderPublicKey = Key.fromHexString(message.senderPublicKey)
                     val decryptKeyPair = KeyPair(senderPublicKey, myPrivateKey)
-                    //      val decryptedMessage: String = lazySodium.cryptoBoxOpenEasy(message.encryptedMessage, nonce, decryptKeyPair)
+                    val decryptedMessage: String = lazySodium.cryptoBoxOpenEasy(message.encryptedMessage, nonce, decryptKeyPair)
 
                     message.isSent = false
-                    message.decryptedMessage = message.encryptedMessage //decryptedMessage
+                    message.decryptedMessage = decryptedMessage
 
                     setState {
                         copy(
@@ -125,12 +128,12 @@ class ConversationViewModel(
             myPrivateKey
         ) // encrypt with other's public key using my secret key
 
-        // val encrypted: String = lazySodium.cryptoBoxEasy(body, nonce, sentKeyPair)
+         val encryptedMessage: String = lazySodium.cryptoBoxEasy(body, nonce, sentKeyPair)
 
         val message = Message(
             senderPublicKey = senderPublicKey,
             receivePublicKey = receiverPublicKey,
-            encryptedMessage = body
+            encryptedMessage = encryptedMessage
         )
 
         socket?.emit(SocketEvents.SOCKET_CHAT_MESSAGE, message.convertToJsonString())

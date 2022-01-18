@@ -54,6 +54,7 @@ class JoinChatActivity :
             val bundle = Bundle()
             bundle.putString(BundleKeys.CONVERSATION_PUBLIC_KEY, enteredPublicKey)
             navigateToActivity(ConversationActivity::class.java, bundle)
+            finish()
        // } else {
           //  showLongToast(getString(R.string.error_invalid))
        // }

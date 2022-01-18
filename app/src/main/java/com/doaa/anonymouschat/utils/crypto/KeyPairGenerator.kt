@@ -24,16 +24,15 @@ object KeyPairGenerator {
 
    fun generate() : KeyPairResult? {
       val seed = sodium.randomBytesBuf(16)
-      return  KeyPairResult(seed, sodium.cryptoBoxKeypair())
-     /* return try {
+      return try {
          val padding = ByteArray(16) { 0 }
-         val ed25519KeyPair = sodium.cryptoBoxKeypair() // sodium.cryptoSignSeedKeypair(seed + padding)
+         val ed25519KeyPair = sodium.cryptoSignSeedKeypair(seed + padding)
          val sodiumX25519KeyPair = sodium.convertKeyPairEd25519ToCurve25519(ed25519KeyPair)
         // val x25519KeyPair = ECKeyPair(PublicKey(sodiumX25519KeyPair.publicKey.asBytes), PrivateKey(sodiumX25519KeyPair.secretKey.asBytes))
          KeyPairResult(seed, ed25519KeyPair)
       } catch (exception: Exception) {
          null
-      }*/
+      }
    }
 
 }
