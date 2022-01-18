@@ -15,6 +15,7 @@
     <string name="join_chat_say_hello">Say Hello!</string>
 
     <!-- Activity - Conversation -->
+    <string name="conversation_type_message">Type a message....</string>
     <string name="conversation_send">Send</string>
 
     <!-- Error Handling -->

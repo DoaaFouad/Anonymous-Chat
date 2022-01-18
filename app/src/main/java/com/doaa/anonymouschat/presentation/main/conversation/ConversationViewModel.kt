@@ -13,12 +13,12 @@ package com.doaa.anonymouschat.presentation.main.conversation
 
 import com.doaa.anonymouschat.data.cache.EncryptedSharedPreferenceRepository
 import com.doaa.anonymouschat.data.socket.SocketBuilder
+import com.doaa.anonymouschat.data.socket.SocketEvents
 import com.doaa.anonymouschat.domain.entities.messaging.Message
 import com.doaa.anonymouschat.presentation.base.BaseViewModel
 import com.google.gson.Gson
 import com.goterl.lazysodium.LazySodiumAndroid
 import com.goterl.lazysodium.SodiumAndroid
-import com.goterl.lazysodium.interfaces.Box
 import com.goterl.lazysodium.utils.Key
 import com.goterl.lazysodium.utils.KeyPair
 import io.socket.client.Socket
@@ -31,60 +31,17 @@ class ConversationViewModel(
     BaseViewModel<ConversationContract.Intent, ConversationContract.State, ConversationContract.Effect>() {
 
     private lateinit var conversationPublicKey: String
+    private var myPublicKey: Key? = null
+    private var myPrivateKey: Key? = null
 
     private val lazySodium by lazy { LazySodiumAndroid(SodiumAndroid()) }
 
     private val socket by lazy { socketBuilder.socketObject }
 
-    val aliceKp: KeyPair = lazySodium.cryptoBoxKeypair()
-    val bobKp: KeyPair = lazySodium.cryptoBoxKeypair()
-    val nonce: ByteArray = lazySodium.nonce(Box.NONCEBYTES)
-
-    private val onNotificationReceived: Emitter.Listener = Emitter.Listener { array ->
-        array?.let {
-            if (array.isNotEmpty()) {
-                val data = it[0].toString()
-                val message =  Gson().fromJson(data, Message::class.java)
-                val aliicce = Key.fromHexString(sharedPreferenceRepository.getPublicKey())
-                val boob = Key.fromHexString(sharedPreferenceRepository.getPublicKey())
-
-                val bobFromAliceKp = KeyPair(aliceKp.getPublicKey(), bobKp.getSecretKey())
-                val decrypted: String = lazySodium.cryptoBoxOpenEasy(message.encryptedMessage, nonce, bobFromAliceKp)
-
-
-               // val aliceToBobKp = KeyPair(sharedPreferenceRepository.getPublicKey(), sharedPreferenceRepository.getPublicKey())
-              //  val bobFromAliceKp = KeyPair(aliceKp.publicKey, bobKp.secretKey)
-             //   val nonce: ByteArray = sodium.nonce(Box.NONCEBYTES)
-              //  val decrypted: String = sodium.cryptoBoxOpenEasy(message.encryptedMessage, nonce, bobFromAliceKp)
-             //   Log.d("DECRYPTEDYAM3LM", "decrypteddata" + decrypted)
-                //   showRedCarpetNotification(array[0].toString())
-
-            }
-        }
-
-    }
-
-    private val onConnect: Emitter.Listener = Emitter.Listener {
-        android.util.Log.d("socket landing", "connected...")
-    }
-
-    private val onConnecting: Emitter.Listener = Emitter.Listener {
-        android.util.Log.d("socket landing", "connecting")
-    }
-
     private val onConnectError: Emitter.Listener =
         Emitter.Listener {
-            android.util.Log.d("socket landing", "Error connecting...") }
 
-    init {
-        socket?.let { mSocket ->
-                mSocket.connect()
-
-          socket?.on("chat message", onNotificationReceived)
-            mSocket.on(Socket.EVENT_CONNECT, onConnecting);
-            mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
         }
-    }
 
     override fun createInitialState(): ConversationContract.State {
         return ConversationContract.State(ConversationContract.ConversationViewState.Idle)
@@ -94,6 +51,8 @@ class ConversationViewModel(
         when (intent) {
             is ConversationContract.Intent.InitConversation -> {
                 conversationPublicKey = intent.publicKey
+                myPublicKey = getMyPublicKey()
+                myPrivateKey = getMyPrivateKey()
             }
 
             is ConversationContract.Intent.SendMessage -> {
@@ -102,8 +61,88 @@ class ConversationViewModel(
         }
     }
 
+    private val onChatMessageReceived: Emitter.Listener = Emitter.Listener { array ->
+        array?.let {
+            if (array.isNotEmpty()) {
+                val data = it[0].toString()
+                val message = Gson().fromJson(data, Message::class.java)
+
+                if (message.senderPublicKey == myPublicKey?.asHexString) {
+                    val senderPublicKey = Key.fromHexString(message.senderPublicKey)
+                    val decryptKeyPair = KeyPair(senderPublicKey, myPrivateKey)
+                    //  val decryptedMessage: String = lazySodium.cryptoBoxOpenEasy(message.encryptedMessage, nonce, decryptKeyPair)
+
+                    message.isSent = true
+                    message.decryptedMessage = message.encryptedMessage //decryptedMessage
+
+                    setState {
+                        copy(
+                            conversationViewState = ConversationContract.ConversationViewState.NewMessage(
+                                message
+                            )
+                        )
+                    }
+
+                } else {
+                    val senderPublicKey = Key.fromHexString(message.senderPublicKey)
+                    val decryptKeyPair = KeyPair(senderPublicKey, myPrivateKey)
+                    //      val decryptedMessage: String = lazySodium.cryptoBoxOpenEasy(message.encryptedMessage, nonce, decryptKeyPair)
+
+                    message.isSent = false
+                    message.decryptedMessage = message.encryptedMessage //decryptedMessage
+
+                    setState {
+                        copy(
+                            conversationViewState = ConversationContract.ConversationViewState.NewMessage(
+                                message
+                            )
+                        )
+                    }
+                }
+            }
+        }
+
+    }
+
+    init {
+        socket?.let { mSocket ->
+            mSocket.on(SocketEvents.SOCKET_CHAT_MESSAGE, onChatMessageReceived)
+            mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError)
+
+            mSocket.connect()
+        }
+    }
+
     private fun sendMessage(body: String?) {
-     }
+
+        val senderPublicKey = myPublicKey?.asHexString
+        val receiverPublicKey = conversationPublicKey
+
+        val otherPublicKey = Key.fromHexString(conversationPublicKey)
+        val myPrivateKey = Key.fromHexString(sharedPreferenceRepository.getPrivateKey())
+        val sentKeyPair = KeyPair(
+            otherPublicKey,
+            myPrivateKey
+        ) // encrypt with other's public key using my secret key
+
+        // val encrypted: String = lazySodium.cryptoBoxEasy(body, nonce, sentKeyPair)
+
+        val message = Message(
+            senderPublicKey = senderPublicKey,
+            receivePublicKey = receiverPublicKey,
+            encryptedMessage = body
+        )
+
+        socket?.emit(SocketEvents.SOCKET_CHAT_MESSAGE, message.convertToJsonString())
+    }
+
+    private fun getMyPublicKey(): Key {
+        return Key.fromHexString(sharedPreferenceRepository.getPublicKey())
+    }
+
+    private fun getMyPrivateKey(): Key {
+        return Key.fromHexString(sharedPreferenceRepository.getPrivateKey())
+    }
 
     override fun onCleared() {
         socket?.let { mSocket ->

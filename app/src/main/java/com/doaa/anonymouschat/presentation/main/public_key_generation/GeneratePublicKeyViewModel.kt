@@ -14,6 +14,8 @@ package com.doaa.anonymouschat.presentation.main.public_key_generation
 import com.doaa.anonymouschat.data.cache.EncryptedSharedPreferenceRepository
 import com.doaa.anonymouschat.presentation.base.BaseViewModel
 import com.doaa.anonymouschat.utils.KeyPairGenerator
+import com.goterl.lazysodium.LazySodiumAndroid
+import com.goterl.lazysodium.SodiumAndroid
 import kotlin.random.Random
 
 class GeneratePublicKeyViewModel(val sharedPreferenceRepository: EncryptedSharedPreferenceRepository) :
@@ -24,25 +26,29 @@ class GeneratePublicKeyViewModel(val sharedPreferenceRepository: EncryptedShared
     }
 
     override suspend fun handleIntent(intent: GeneratePublicKeyContract.Intent) {
-        when(intent) {
+        when (intent) {
             is GeneratePublicKeyContract.Intent.GeneratePublicKey -> {
                 generatePublicKey()
             }
         }
     }
 
-    private fun generatePublicKey(){
-      val keyPairResult = KeyPairGenerator.generate()
+    private fun generatePublicKey() {
+        val keyPairResult = KeyPairGenerator.generate()
         setState {
             copy(
                 generatePublicKeyViewState = GeneratePublicKeyContract.GeneratePublicKeyViewState.GeneratePublicKeySuccess(
-                   keyPairResult = keyPairResult
+                    keyPairResult = keyPairResult
                 )
             )
         }
 
-        sharedPreferenceRepository.setPublicKey(keyPairResult?.ed25519KeyPair?.publicKey?.asHexString ?: "")
-        sharedPreferenceRepository.setPrivateKey(keyPairResult?.ed25519KeyPair?.secretKey?.asHexString ?: "")
+        sharedPreferenceRepository.setPublicKey(
+            keyPairResult?.ed25519KeyPair?.publicKey?.asHexString ?: ""
+        )
+        sharedPreferenceRepository.setPrivateKey(
+            keyPairResult?.ed25519KeyPair?.secretKey?.asHexString ?: ""
+        )
         sharedPreferenceRepository.setUserName("Anonymous${Random.nextInt(500)}" ?: "")
     }
 }

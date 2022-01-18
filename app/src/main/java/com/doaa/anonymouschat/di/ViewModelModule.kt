@@ -23,7 +23,7 @@ val viewModelModule = module {
 
     viewModel { SplashViewModel(get()) }
     viewModel { GeneratePublicKeyViewModel(get()) }
-    viewModel { UserHomeViewModel(get()) }
+    viewModel { UserHomeViewModel(get(), get()) }
     viewModel { JoinChatViewModel() }
     viewModel { ConversationViewModel(get(), get()) }
 }

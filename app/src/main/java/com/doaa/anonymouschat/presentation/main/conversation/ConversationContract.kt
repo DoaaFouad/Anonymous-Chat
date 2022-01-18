@@ -11,6 +11,7 @@
 
 package com.doaa.anonymouschat.presentation.main.conversation
 
+import com.doaa.anonymouschat.domain.entities.messaging.Message
 import com.doaa.anonymouschat.presentation.base.ViewEffect
 import com.doaa.anonymouschat.presentation.base.ViewIntent
 import com.doaa.anonymouschat.presentation.base.ViewState
@@ -29,6 +30,7 @@ class ConversationContract {
     sealed class ConversationViewState {
         object Idle : ConversationViewState()
         object Loading : ConversationViewState()
+        data class NewMessage(val message: Message) : ConversationViewState()
     }
 
     sealed class Effect : ViewEffect {

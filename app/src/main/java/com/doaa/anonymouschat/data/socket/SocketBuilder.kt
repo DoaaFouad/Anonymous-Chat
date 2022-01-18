@@ -20,7 +20,7 @@ class SocketBuilder() {
 
     private fun getSocket(): Socket? {
         return try {
-            val socketUrl = "http://1c57-91-75-111-243.ngrok.io"
+            val socketUrl = "http://0306-91-75-111-243.ngrok.io"
             Log.e("socket", socketUrl)
             var mSocket: Socket?
             mSocket = IO.socket(socketUrl)

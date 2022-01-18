@@ -14,4 +14,6 @@ package com.doaa.anonymouschat.utils.constants
 object BundleKeys {
 
     const val CONVERSATION_PUBLIC_KEY = "conversation_public_key"
+    const val CONVERSATION_ITEM_IDENTIFIER = "conversation_item_identifier"
+    const val CONVERSATION_ITEM_LAST_MESSAGE = "conversation_item_last_message"
 }

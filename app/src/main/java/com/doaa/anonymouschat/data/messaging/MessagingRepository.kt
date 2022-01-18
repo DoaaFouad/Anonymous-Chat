@@ -11,7 +11,5 @@
 
 package com.doaa.anonymouschat.data.messaging
 
-import com.doaa.anonymouschat.domain.entities.messaging.Message
-
 class MessagingRepository {
 }
