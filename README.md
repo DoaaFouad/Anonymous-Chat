@@ -25,7 +25,7 @@ Koin framework (https://github.com/InsertKoinIO/koin) is used for Dependency Inj
 Coroutines (https://kotlinlang.org/docs/coroutines-guide.html) is used for asynchronous programming.
 
 ### Networking layer
-Retrofit (https://square.github.io/retrofit/) and OkHttp (https://square.github.io/okhttp/) are used for networks requests/intercept.
+Socket.io (https://socket.io/) used for connecting websocket.
 
 ### Room Database
 Room DB (https://developer.android.com/jetpack/androidx/releases/room) is used for caching user's conversations list.
